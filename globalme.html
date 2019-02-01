@@ -43,7 +43,7 @@ table, th, td {
   </tr>
 </table>
 
-<p>Purchase Item:
+<p>Purchase Item: 
   <select id="purchase">
     <option value="x" selected="selected">Select an item...</option>
     <option value="a">a. Lay's Potatoe Chips: $2.75</option>
@@ -69,8 +69,8 @@ table, th, td {
     <option value="500">$5.00 USD</option>
     <option value="1000">$10.00 USD</option>
   </select>
-</p>
-
+</p> 
+ 
 <button onclick="depositPayment()"> Deposit</button>
 
 <p><button onclick="go()">Go</button></p>
@@ -82,22 +82,22 @@ table, th, td {
 
 <script>
 
-var totalPayment = 0;
+var totalPayment = 0; 
 var totalPurchase = 0;
-var totalChange = 0;
+var totalChange = 0; 
 var deposit = 0;
 function init(){
-	totalPayment = 0 ;
+	totalPayment = 0 ; 
     totalPurchase = 0;
-    totalChange = 0;
-    deposit = 0
-
+    totalChange = 0; 
+    deposit = 0 
+    
     var elementPayment = document.getElementById("payment");
     elementPayment.value = "x";
-
+    
      var elementItem = document.getElementById("purchase");
     elementItem.value = "x";
-
+    
      var elementDeposit = document.getElementById("deposit");
     elementDeposit.value = "";
 }
@@ -109,7 +109,7 @@ function go(){
     console.log(totalPurchase);
       var paymentCurrency = parseFloat(deposit/100).toFixed(2);
       console.log(paymentCurrency);
-      totalChange = parseFloat(paymentCurrency).toFixed(2) - parseFloat(totalPurchase).toFixed(2);
+      totalChange = parseFloat(paymentCurrency).toFixed(2) - parseFloat(totalPurchase).toFixed(2); 
       totalChange = totalChange.toFixed(2);
       console.log(totalChange);
       if(totalChange <= 0){
@@ -119,8 +119,8 @@ function go(){
       }
        var changeReturnAmount = document.getElementById("changeReturnAmount");
     changeReturnAmount.value = totalChange;
-
-      change([5000, 2000, 1000, 500, 200, 50, 20, 10, 5, 2, 1, .50, .25, .10,.05, .01]);
+    
+      change([10, 5, 1, .50, .25, .10,.05, .01]);
 
     init();
 }
@@ -143,8 +143,8 @@ function getPrice(purchase){
 }
 
 function validatePurchaseItemEntry(item){
-	 if (item != "a"
-    		&& item != "b"
+	 if (item != "a" 
+    		&& item != "b" 
         	&& item != "c"
         	&& item != "d"
         	&& item != "e"
@@ -163,12 +163,12 @@ var input = document.getElementById("payment").value;
         document.getElementById("deposit").value = deposit
     }
     console.log(deposit);
-
+    
 }
 
 function validateDeposit(deposit){
-    if (deposit != 1
-    	&& deposit != 5
+    if (deposit != 1 
+    	&& deposit != 5 
         && deposit != 10
         && deposit != 25
         && deposit != 50
@@ -190,9 +190,13 @@ function change(coins) {
     for (var i = 0; totalChange > 0 && i < coins.length; i++) {
         var value = coins[i];
 
-        if (value <= totalChange) {
-            res[value] = Math.floor(totalChange / value);
-            totalChange -= value * res[value];
+        if (value <= parseFloat(totalChange).toFixed(2) ) {
+			if(value <= .50){
+				res[value] = Math.round(parseFloat(totalChange).toFixed(2) / value);
+			}else{
+				res[value] = Math.floor(parseFloat(totalChange).toFixed(2) / value);
+			}
+			totalChange -= value * res[value];
         }
     }
 	console.log(res);
